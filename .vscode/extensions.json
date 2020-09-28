@@ -2,11 +2,14 @@
     // See http://go.microsoft.com/fwlink/?LinkId=827846
     // for the documentation about the extensions.json format
     "recommendations": [
-        "EditorConfig.EditorConfig",
-        "ms-vscode.PowerShell",
         "DavidAnson.vscode-markdownlint",
+        "EditorConfig.EditorConfig",
         "gruntfuggly.todo-tree",
+        "hbenl.vscode-test-explorer-liveshare",
+        "ms-vscode.PowerShell",
+        "MS-vsliveshare.vsliveshare-pack",
         "streetsidesoftware.code-spell-checker",
+        "tylerleonhardt.vscode-pester-test-adapter",
         "visualstudioexptteam.vscodeintellicode"
     ]
 }
