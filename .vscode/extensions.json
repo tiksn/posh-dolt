@@ -4,6 +4,9 @@
     "recommendations": [
         "EditorConfig.EditorConfig",
         "ms-vscode.PowerShell",
-        "DavidAnson.vscode-markdownlint"
+        "DavidAnson.vscode-markdownlint",
+        "gruntfuggly.todo-tree",
+        "streetsidesoftware.code-spell-checker",
+        "visualstudioexptteam.vscodeintellicode"
     ]
 }
