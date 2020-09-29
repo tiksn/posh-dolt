@@ -14,7 +14,7 @@ if ([string](dolt version 2> $null) -match '(?<ver>\d+(?:\.\d+)+)') {
 }
 
 if ($script:DoltVersion -lt $requiredVersion) {
-    Write-Warning "posh-dolt requires Dolt $requiredVersion or better. You have $GitVersion."
+    Write-Warning "posh-dolt requires Dolt $requiredVersion or better. You have $script:DoltVersion."
     $false
 }
 else {
