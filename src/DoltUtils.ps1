@@ -36,21 +36,6 @@ function Get-DoltDirectory {
                 }
             }
 
-            $headPath = Join-Path $currentDir.FullName HEAD
-            if (Test-Path -LiteralPath $headPath -PathType Leaf) {
-                $refsPath = Join-Path $currentDir.FullName refs
-                $objsPath = Join-Path $currentDir.FullName objects
-                if ((Test-Path -LiteralPath $refsPath -PathType Container) -and
-                    (Test-Path -LiteralPath $objsPath -PathType Container)) {
-
-                    $bareDir = Invoke-Utf8ConsoleCommand { git rev-parse --git-dir 2>$null }
-                    if ($bareDir -and (Test-Path -LiteralPath $bareDir -PathType Container)) {
-                        $resolvedBareDir = (Resolve-Path $bareDir).Path
-                        return $resolvedBareDir
-                    }
-                }
-            }
-
             $currentDir = $currentDir.Parent
         }
     }
