@@ -18,25 +18,44 @@ function Get-DoltDirectory {
         $null
     }
     elseif ($Env:DOLT_DIR) {
-        $Env:DOLT_DIR -replace '\\|/', [System.IO.Path]::DirectorySeparatorChar
+        Resolve-Path -Path $Env:DOLT_DIR
     }
     else {
         $currentDir = Get-Item -LiteralPath $pathInfo -Force
         while ($currentDir) {
             $doltDirPath = Join-Path $currentDir.FullName .dolt
             if (Test-Path -LiteralPath $doltDirPath -PathType Container) {
-                return $doltDirPath
-            }
-
-            # Handle the worktree case where .dolt is a file
-            if (Test-Path -LiteralPath $doltDirPath -PathType Leaf) {
-                $doltDirPath = Invoke-Utf8ConsoleCommand { git rev-parse --git-dir 2>$null }
-                if ($doltDirPath) {
-                    return $doltDirPath
-                }
+                return $currentDir
             }
 
             $currentDir = $currentDir.Parent
         }
+    }
+}
+
+function Get-DoltBranch($doltDir, [Diagnostics.Stopwatch]$sw) {
+    if (!$doltDir) {
+        $pathInfo = Microsoft.PowerShell.Management\Get-Location
+        $doltDir = Get-DoltDirectory
+        if ($pathInfo.Path -ne $doltDir) {
+            if ((Split-Path -Path $pathInfo -Leaf) -eq '.dolt') {
+                return 'DOLT_DIR!'
+            }
+            elseif ((Split-Path -Path (Split-Path -Path $pathInfo -Parent) -Leaf) -eq '.dolt') {
+                return 'DOLT_DIR!'
+            }
+        }
+    }
+
+    if (!$doltDir) {
+        return
+    }
+
+    $branch = dolt branch --show-current 2> $null
+
+    return $branch
+}
+
+    }
     }
 }
