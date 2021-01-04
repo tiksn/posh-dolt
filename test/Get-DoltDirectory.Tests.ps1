@@ -54,7 +54,8 @@ Describe 'Get-DoltDirectory Tests' {
 
         It 'Returns correct path when in the root of bare repo' {
             Set-Location $bareRepoPath
-            Get-DoltDirectory | Should -BeExactly $bareRepoPath
+            $expectedPath = Join-Path -Path $bareRepoPath -ChildPath '.dolt'
+            Get-DoltDirectory | Should -BeExactly $expectedPath
         }
     }
 
@@ -63,7 +64,14 @@ Describe 'Get-DoltDirectory Tests' {
             Remove-Item Env:\DOLT_DIR -ErrorAction SilentlyContinue
         }
         It 'Returns the value in DOLT_DIR env var' {
-            $Env:DOLT_DIR = MakeNativePath '/xyzzy/posh-dolt/'
+            $tempPath = [System.IO.Path]::GetTempPath()
+            $repoName = "xyzzy/posh-dolt/"
+            $repoPath = Join-Path $tempPath $repoName
+            if (Test-Path $repoPath) {
+                Remove-Item $repoPath -Recurse -Force
+            }
+            New-Item $repoPath -ItemType Directory | Out-Null
+            $Env:DOLT_DIR = $repoPath
             Get-DoltDirectory | Should -BeExactly $Env:DOLT_DIR
         }
     }

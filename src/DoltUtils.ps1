@@ -14,18 +14,18 @@
 #>
 function Get-DoltDirectory {
     $pathInfo = Microsoft.PowerShell.Management\Get-Location
-    if (!$pathInfo -or ($pathInfo.Provider.Name -ne 'FileSystem')) {
-        $null
-    }
-    elseif ($Env:DOLT_DIR) {
+    if ($Env:DOLT_DIR) {
         Resolve-Path -Path $Env:DOLT_DIR
+    }
+    elseif (!$pathInfo -or ($pathInfo.Provider.Name -ne 'FileSystem')) {
+        $null
     }
     else {
         $currentDir = Get-Item -LiteralPath $pathInfo -Force
         while ($currentDir) {
             $doltDirPath = Join-Path $currentDir.FullName .dolt
             if (Test-Path -LiteralPath $doltDirPath -PathType Container) {
-                return $currentDir
+                return $doltDirPath
             }
 
             $currentDir = $currentDir.Parent
