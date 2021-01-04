@@ -35,27 +35,20 @@ function Get-DoltDirectory {
 
 function Get-DoltBranch($doltDir, [Diagnostics.Stopwatch]$sw) {
     if (!$doltDir) {
-        $pathInfo = Microsoft.PowerShell.Management\Get-Location
         $doltDir = Get-DoltDirectory
-        if ($pathInfo.Path -ne $doltDir) {
-            if ((Split-Path -Path $pathInfo -Leaf) -eq '.dolt') {
-                return 'DOLT_DIR!'
-            }
-            elseif ((Split-Path -Path (Split-Path -Path $pathInfo -Parent) -Leaf) -eq '.dolt') {
-                return 'DOLT_DIR!'
-            }
-        }
     }
 
     if (!$doltDir) {
         return
     }
 
+    $pathInfo = Microsoft.PowerShell.Management\Get-Location
+
+    if($pathInfo.Path.StartsWith($doltDir)){
+        return 'DOLT_DIR!'
+    }
+
     $branch = dolt branch --show-current 2> $null
 
     return $branch
-}
-
-    }
-    }
 }
