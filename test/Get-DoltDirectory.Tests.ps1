@@ -53,7 +53,19 @@ Describe 'Get-DoltDirectory Tests' {
         }
 
         It 'Returns correct path when in the root of bare repo' {
-            Set-Location $bareRepoPath
+            Set-Location $bareRepoPath -ErrorAction Break
+            $expectedPath = Join-Path -Path $bareRepoPath -ChildPath '.dolt'
+            Get-DoltDirectory | Should -BeExactly $expectedPath
+        }
+
+        It 'Returns correct path when in the .dolt of bare repo' {
+            Set-Location (Join-Path -Path $bareRepoPath -ChildPath '.dolt') -ErrorAction Break
+            $expectedPath = Join-Path -Path $bareRepoPath -ChildPath '.dolt'
+            Get-DoltDirectory | Should -BeExactly $expectedPath
+        }
+
+        It 'Returns correct path when in the .dolt/noms of bare repo' {
+            Set-Location (Join-Path -Path $bareRepoPath -ChildPath '.dolt/noms') -ErrorAction Break
             $expectedPath = Join-Path -Path $bareRepoPath -ChildPath '.dolt'
             Get-DoltDirectory | Should -BeExactly $expectedPath
         }
