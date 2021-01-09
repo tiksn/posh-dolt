@@ -15,7 +15,8 @@
 		"streetsidesoftware.code-spell-checker",
 		"editorconfig.editorconfig",
 		"ms-vsliveshare.vsliveshare-pack",
-		"visualstudioexptteam.vscodeintellicode"
+		"visualstudioexptteam.vscodeintellicode",
+		"letmaik.git-tree-compare"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
