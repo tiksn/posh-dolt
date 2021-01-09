@@ -21,5 +21,6 @@ RUN apt-get update \
 RUN pwsh -c Install-Module -Name Pester -Force -AcceptLicense -Scope AllUsers
 RUN curl -L https://github.com/dolthub/dolt/releases/latest/download/install.sh | bash
 
-ENV PoshDoltTestRepository="/locales"
+ENV PoshDoltTestRepository="/home/$USERNAME/locales"
 RUN dolt clone tiksn/locales ${PoshDoltTestRepository}
+RUN chmod -R 777 ${PoshDoltTestRepository}
