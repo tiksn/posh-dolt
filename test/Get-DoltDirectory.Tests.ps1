@@ -13,7 +13,8 @@ Describe 'Get-DoltDirectory Tests' {
         }
 
         It 'Returns $null for not a Dolt repo' {
-            Set-Location $env:windir
+            $modulePath | Should -Not -BeNullOrEmpty
+            Set-Location $modulePath
             Get-DoltDirectory | Should -BeNullOrEmpty
         }
         It 'Returns $null for not a filesystem path' {
