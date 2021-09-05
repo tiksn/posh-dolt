@@ -5,10 +5,9 @@
         "davidanson.vscode-markdownlint",
         "editorconfig.editorconfig",
         "gruntfuggly.todo-tree",
-        "hbenl.vscode-test-explorer-liveshare",
         "ms-vsliveshare.vsliveshare-pack",
         "streetsidesoftware.code-spell-checker",
-        "tylerleonhardt.vscode-pester-test-adapter",
+        "pspester.pester-test",
         "visualstudioexptteam.vscodeintellicode",
         "letmaik.git-tree-compare"
     ]
