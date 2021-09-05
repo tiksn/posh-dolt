@@ -12,8 +12,7 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-vscode.powershell",
-		"tylerleonhardt.vscode-pester-test-adapter",
-		"hbenl.vscode-test-explorer-liveshare",
+		"pspester.pester-test",
 		"ms-vsliveshare.vsliveshare-pack",
 		"gruntfuggly.todo-tree",
 		"davidanson.vscode-markdownlint",
